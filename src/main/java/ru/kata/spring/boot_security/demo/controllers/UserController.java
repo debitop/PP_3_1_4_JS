@@ -42,8 +42,8 @@ public class UserController {
         if (userService.ifLogin("login")) {
             return "redirect:/user";
         }
-        Role roleAdmin = new Role(1l, "ROLE_ADMIN");
-        Role roleUser = new Role(2l, "ROLE_USER");
+        Role roleAdmin = new Role(1L, "ROLE_ADMIN");
+        Role roleUser = new Role(2L, "ROLE_USER");
         roleService.saveRole(roleAdmin);
         roleService.saveRole(roleUser);
         User admin = new User("admin", "admin", Set.of(roleAdmin));
