@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:form="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="logout"/>
+</form>
+<br>
+<h1>Edit user</h1>
+
+<form th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
+    <table>
+
+        <input type="hidden" th:field="*{id}" id="id"/>
+        <tr>
+            <td>
+                <label for="name">First Name </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{name}" id="name"/>
+                <input type="hidden" th:errors="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="lastName">Last name </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{lastName}" id="lastName"/>
+                <input type="hidden" th:errors="*{lastName}"/>
+            <td></td>
+
+        <tr>
+            <td>
+                <label for="age">Age </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{age}" id="age"/>
+                <input type="hidden" th:errors="*{age}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="email">Email </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{email}" id="email"/>
+                <input type="hidden" th:errors="*{email}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="age">Login </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{login}" id="login"/>
+                <input type="hidden" th:text="${errorMessage}"/>
+                <input type="hidden" th:errors="*{login}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="age">Password </label>
+            </td>
+            <td>
+                <input type="password" th:field="*{password}" id="password"/>
+                <input type="hidden" th:errors="*{password}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="age">Role </label>
+            </td>
+            <td>
+                <input type="checkbox" id="roles" th:each="role: ${roles}"
+                       th:text="${role.role}"
+                       th:value="${role.id}"
+                       th:field="*{roles}"/>
+                <input type="hidden" th:errors="*{roles}"/>
+
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Edit"/>
+</form>
+<form method="get" action="/admin">
+    <input type="submit" value="Close"/>
+</form>
+</body>
+</html>

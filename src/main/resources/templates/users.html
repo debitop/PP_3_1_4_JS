@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Users</title>
     <style>
         table {
             border-collapse: collapse;
@@ -28,8 +28,7 @@
     <input type="submit" value="logout"/>
 </form>
 <br>
-<h1>User information-page</h1>
-
+<h2>All users</h2>
 <table>
     <tr>
         <th>ID</th>
@@ -39,8 +38,8 @@
         <th>Age</th>
         <th>Email</th>
         <th>Role</th>
-
-        </th></tr>
+        <th style="border: 0px;"></th>
+    </tr>
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.login}"></td>
@@ -51,9 +50,23 @@
         <td>
             <div th:each="role : ${user.roles}" th:text="${role.role}"></div>
         </td>
+        <td style="border: none; padding-right: 1px;">
+            <form action="/admin/edit" method="GET">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <input type="submit" value="Edit"/>
+            </form>
+        </td>
+        <td style="border: none; padding-left: 1px;">
+            <form th:method="POST" th:action="@{/admin/delete}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
     </tr>
 </table>
-
-
+<br>
+<form action="admin/edit" method="GET">
+    <input type="submit" value="Add new user"/>
+</form>
 </body>
 </html>
