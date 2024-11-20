@@ -54,38 +54,52 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String listUsers(Model model) {
+    public String listUsers(Model model, Principal principal) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
+        model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
+        model.addAttribute("roles", roleService.findAllRole());
+
+//        if (user.getId() != null) {
+//            model.addAttribute("user", userService.getUserById(user.getId()));
+//        }
+
         return "users";
     }
 
     @GetMapping("/user")
     public String user(Model model, Principal principal) {
-        model.addAttribute("users", userService.loadUserByUsername(principal.getName()));
+        model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
         return "user";
     }
 
 
     @GetMapping("/admin/edit")
-    public String addUser(@ModelAttribute("user") User user, Model model) {
+    public String addUser(@ModelAttribute("user") User user, Model model, Principal principal) {
         if (user.getId() != null) {
             model.addAttribute("user", userService.getUserById(user.getId()));
         }
         model.addAttribute("roles", roleService.findAllRole());
-        return "edit";
+        model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
+
+        return "create";
     }
 
     @PostMapping("/admin/edit")
-    public String save(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    public String save(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, Principal principal) {
         model.addAttribute("roles", roleService.findAllRole());
+        model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
+
         if (bindingResult.hasErrors()) {
-            return "edit";
+            System.out.println("error in binding result");
+            System.out.println(bindingResult.getAllErrors());
+            System.out.println(bindingResult.getFieldErrors());
+            return "create";
         } else {
             if (user.getId() == null) {
                 if (userService.ifLogin(user.getLogin())) {
                     model.addAttribute("errorMessage", "Login is already in use");
-                    return "edit";
+                    return "create";
                 }
                 userService.saveUser(user);
             } else {
