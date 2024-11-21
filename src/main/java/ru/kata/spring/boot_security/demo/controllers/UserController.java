@@ -59,11 +59,6 @@ public class UserController {
         model.addAttribute("users", users);
         model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
         model.addAttribute("roles", roleService.findAllRole());
-
-//        if (user.getId() != null) {
-//            model.addAttribute("user", userService.getUserById(user.getId()));
-//        }
-
         return "users";
     }
 
@@ -73,7 +68,6 @@ public class UserController {
         return "user";
     }
 
-
     @GetMapping("/admin/edit")
     public String addUser(@ModelAttribute("user") User user, Model model, Principal principal) {
         if (user.getId() != null) {
@@ -81,7 +75,6 @@ public class UserController {
         }
         model.addAttribute("roles", roleService.findAllRole());
         model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
-
         return "create";
     }
 
@@ -89,7 +82,6 @@ public class UserController {
     public String save(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, Principal principal) {
         model.addAttribute("roles", roleService.findAllRole());
         model.addAttribute("currentUser", userService.loadUserByUsername(principal.getName()));
-
         if (bindingResult.hasErrors()) {
             System.out.println("error in binding result");
             System.out.println(bindingResult.getAllErrors());

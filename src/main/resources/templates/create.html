@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-dark bg-dark">
 
     <div class="container-fluid">
@@ -41,11 +40,9 @@
             </ul>
         </div>
 
-
         <div class="col-10" style="background-color: #f8f9fa">
             <div class="mx-3">
                 <h1 class="py-2"><strong>Admin panel</strong></h1>
-
 
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
@@ -71,7 +68,6 @@
                                 <input type="hidden" th:text="${errorMessage}"/>
                                 <input type="hidden" th:errors="*{login}"/>
                             </div>
-
 
                             <label for="firstName" class="form-label mb-0"> First name </label>
                             <input type="text" class="form-control mb-3" th:field="*{name}" id="firstName"
@@ -100,8 +96,7 @@
                                     name="roles"
                                     multiple size="2"
                                     required
-                                    th:field="*{roles}"
-                            >
+                                    th:field="*{roles}">
                                 <option th:each="role : ${roles}"
                                         th:value="${role.id}"
                                         th:text="${role.role}">
@@ -114,5 +109,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
