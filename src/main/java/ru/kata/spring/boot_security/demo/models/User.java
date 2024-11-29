@@ -20,7 +20,7 @@ public class User implements UserDetails {
     private String name;
 
     @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
     @Column(name = "age")
     private String age;
@@ -46,9 +46,13 @@ public class User implements UserDetails {
 
     }
 
-    public User(String login, String password, Set<Role> roles) {
+    public User(String name, String lastname, String age, String login, String password, String email, Set<Role> roles) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
         this.login = login;
         this.password = password;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -57,7 +61,7 @@ public class User implements UserDetails {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", age='" + age + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
@@ -112,12 +116,12 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getAge() {
