@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserDetailsService, UserService {
+public class UserServiceImpl implements UserService {
 
     final private UserRepository userRepository;
     final private PasswordEncoder passwordEncoder;
